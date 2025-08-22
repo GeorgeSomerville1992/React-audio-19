@@ -1,16 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { App } from './App';
 import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
-
-const mockData = {
-  audioUrl: 'test-audio.mp3',
-  blocks: [
-    { start: 0, end: 5, text: 'Hello world' },
-    { start: 6, end: 10, text: 'This is a test' },
-  ],
-};
+import mockData from './__mocks__/transcript.json';
 
 const mocks = vi.hoisted(() => ({
   useTranscript: vi.fn(() => ({ loading: false, data: mockData, error: null })),
@@ -40,6 +32,8 @@ describe('Home Component', () => {
       data: {
         blocks: [],
         audioUrl: '',
+        id: '',
+        title: ''
       },
       error: null,
     });
@@ -50,14 +44,13 @@ describe('Home Component', () => {
   it('renders transcript and blocks', () => {
     mocks.useTranscript.mockReturnValue({ loading: false, data: mockData, error: null });
     render(<App />);
-    expect(screen.getByText('Hello world')).toBeInTheDocument();
-    expect(screen.getByText('This is a test')).toBeInTheDocument();
+    expect(screen.getByText('Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.')).toBeInTheDocument();
   });
 
   it('highlights block on click', () => {
     mocks.useTranscript.mockReturnValue({ loading: false, data: mockData, error: null });
     render(<App />);
-    const block = screen.getByText('Hello world');
+    const block = screen.getByText('Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.');
     fireEvent.click(block);
     expect(block).toHaveClass('block-highlighted');
   });
@@ -69,9 +62,9 @@ describe('Home Component', () => {
     render(<App />);
     act(() => {
       // Simulate audioTime change
-      setSelectedText({ text: 'Hello world' });
+      setSelectedText({ text: 'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.' });
     });
 
-    expect(setSelectedText).toHaveBeenCalledWith({ text: 'Hello world' });
+    expect(setSelectedText).toHaveBeenCalledWith({ text: 'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.' });
   });
 });

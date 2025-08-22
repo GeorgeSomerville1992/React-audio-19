@@ -77,7 +77,7 @@ export const App = () => {
 
   if (loading) {
     return (
-      <div data-testId="loading" className="centered">
+      <div data-testid="loading" className="centered">
         <AiOutlineLoading3Quarters size={32} className="loading-icon" />
       </div>
     );
