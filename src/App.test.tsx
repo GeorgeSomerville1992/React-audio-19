@@ -102,7 +102,6 @@ describe('Home Component', () => {
       expect(await screen.findByRole('listitem', { name: 'block-highlighted' })).toHaveTextContent(
         'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.',
       );
-      // test for colour is yellow. Already tested for class block-highlighted
     });
 
     const text = await screen.findByText('So we make it up to the quantity.');
@@ -112,7 +111,6 @@ describe('Home Component', () => {
       expect(await screen.findByRole('listitem', { name: 'block-highlighted' })).toHaveTextContent(
         'So we make it up to the quantity.',
       );
-      // test for colour is yellow. Already tested for class block-highlighted
     });
   });
 
@@ -121,11 +119,9 @@ describe('Home Component', () => {
     const user = userEvent.setup();
 
     const audio = await screen.findByTestId('test-audio');
-    // aria label?
     const playButton = screen.getByRole('button', { name: /play/i });
 
     expect(playButton).toBeInTheDocument();
-    // arial label?
     expect(screen.queryByRole('button', { name: /pause/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('listitem', { name: 'block-highlighted' })).not.toBeInTheDocument();
     expect(audio).toHaveAttribute(
@@ -139,7 +135,6 @@ describe('Home Component', () => {
       expect(await screen.findByRole('listitem', { name: 'block-highlighted' })).toHaveTextContent(
         'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.',
       );
-      // test for colour is yellow. Already tested for class block-highlighted
     });
     // stop the audio
     const pauseButton = screen.getByRole('button', { name: /pause/i });
@@ -170,7 +165,6 @@ describe('Home Component', () => {
       expect(await screen.findByRole('listitem', { name: 'block-highlighted' })).toHaveTextContent(
         'Any forward-looking statements that we make today are based on assumptions as of the state.',
       );
-      // test for colour is yellow. Already tested for class block-highlighted
     });
   });
 });

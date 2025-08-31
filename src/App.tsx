@@ -116,10 +116,11 @@ export const App = () => {
                   return (
                     <li
                       key={`${block.start + index}`}
-                      aria-label={isHighlighted ? 'block-highlighted' : 'test-block'}
+                      aria-label={isHighlighted ? 'block-highlighted' : undefined}
                       onClick={() => handleBlockClick(block)}
+                      className={isHighlighted ? 'block-highlighted' : ''}
                     >
-                      <p className={isHighlighted ? 'block-highlighted' : ''}> {block.text} </p>
+                      <p> {block.text} </p>
                     </li>
                   );
                 })}
