@@ -116,7 +116,7 @@ export const App = () => {
                   return (
                     <li
                       key={`${block.start + index}`}
-                      data-testid={isHighlighted ? 'test-block-highlighted' : 'test-block'}
+                      aria-label={isHighlighted ? 'block-highlighted' : 'test-block'}
                       onClick={() => handleBlockClick(block)}
                     >
                       <p className={isHighlighted ? 'block-highlighted' : ''}> {block.text} </p>
@@ -132,22 +132,22 @@ export const App = () => {
               id="audio"
               src={audioUrl}
               className="audio"
+              aria-label="audio player"
               data-testid="test-audio"
               hidden
             />
             {!isAudioPlaying ? (
-              <button type="button" data-testid="test-play-button" aria-label="Play" onClick={togglePlay}>
+              <button type="button" aria-label="Play" onClick={togglePlay}>
                 <FaCirclePlay size={32} />
               </button>
             ) : (
-              <button type="button" data-testid="test-pause-button" aria-label="Pause" onClick={togglePause}>
+              <button type="button" aria-label="Pause" onClick={togglePause}>
                 <FaCircleStop size={32} />
               </button>
             )}
             <input
               type="range"
               id="audio-scrubber"
-              data-testid="test-audio-scrubber"
               aria-label="Audio Scrubber"
               min="0"
               max={audioRef.current?.duration}

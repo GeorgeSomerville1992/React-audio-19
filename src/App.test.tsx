@@ -99,7 +99,7 @@ describe('Home Component', () => {
     user.click(block);
 
     await waitFor(async () => {
-      expect(await screen.findByTestId('test-block-highlighted')).toHaveTextContent(
+      expect(await screen.findByRole('listitem', {name: 'block-highlighted'})).toHaveTextContent(
         'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.',
       );
       // test for colour is yellow. Already tested for class block-highlighted
@@ -109,7 +109,7 @@ describe('Home Component', () => {
 
     user.click(text);
     await waitFor(async () => {
-      expect(await screen.findByTestId('test-block-highlighted')).toHaveTextContent(
+      expect(await screen.findByRole('listitem', {name: 'block-highlighted'})).toHaveTextContent(
         'So we make it up to the quantity.',
       );
       // test for colour is yellow. Already tested for class block-highlighted
@@ -127,7 +127,7 @@ describe('Home Component', () => {
     expect(playButton).toBeInTheDocument();
     // arial label?
     expect(screen.queryByRole('button', { name: /pause/i })).not.toBeInTheDocument();
-    expect(screen.queryByTestId('test-block-highlighted')).not.toBeInTheDocument();
+    expect(screen.queryByRole('listitem', {name: 'block-highlighted'})).not.toBeInTheDocument();
     expect(audio).toHaveAttribute(
       'src',
       'https://main.d319k8lxxb3z56.amplifyapp.com/gg1aa17c-0a31-495c-8e9d-6179de3d3111.ogg',
@@ -136,7 +136,7 @@ describe('Home Component', () => {
     user.click(playButton);
 
     await waitFor(async () => {
-      expect(await screen.findByTestId('test-block-highlighted')).toHaveTextContent(
+      expect(await screen.findByRole('listitem', {name: 'block-highlighted'})).toHaveTextContent(
         'Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.',
       );
       // test for colour is yellow. Already tested for class block-highlighted
@@ -167,7 +167,7 @@ describe('Home Component', () => {
     fireEvent.change(rangeScrubber, { target: { value: 4800 } });
 
     await waitFor(async () => {
-      expect(await screen.findByTestId('test-block-highlighted')).toHaveTextContent(
+      expect(await screen.findByRole('listitem', {name: 'block-highlighted'})).toHaveTextContent(
         'Any forward-looking statements that we make today are based on assumptions as of the state.',
       );
       // test for colour is yellow. Already tested for class block-highlighted
