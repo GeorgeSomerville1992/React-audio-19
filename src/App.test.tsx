@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { describe, expect, it, afterEach, beforeAll } from 'vitest';
+import { describe, expect, it, afterEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from './App';
@@ -8,8 +8,6 @@ import { QueryClient, QueryClientProvider, QueryCache } from '@tanstack/react-qu
 import transcript from './__mocks__/transcript.json';
 
 const transcriptUrl = 'https://main.d319k8lxxb3z56.amplifyapp.com/api/transcripts/gg1aa17c-0a31-495c-8e9d-6179de3d3111';
-
-beforeAll(() => server.listen());
 
 afterEach(() => {
   server.resetHandlers();
@@ -44,7 +42,6 @@ describe('Home Component', () => {
     render(<App />, { wrapper: AllTheProviders });
 
     await waitFor(async () => {
-      // TODO Automated test - could not find anyway other way for loading state.
       expect(await screen.getByTestId('loading')).toBeInTheDocument();
       expect(await screen.findByText('Audio App')).toBeInTheDocument();
     });
@@ -89,7 +86,7 @@ describe('Home Component', () => {
     });
   });
 
-  it('highlights block on click', async () => {
+  it('correctly highlights blocks on a user click', async () => {
     render(<App />, { wrapper: AllTheProviders });
     const user = userEvent.setup();
     const block = await waitFor(async () => {
@@ -114,7 +111,7 @@ describe('Home Component', () => {
     });
   });
 
-  it('Correct blocks are highlighted when audio is played and paused', async () => {
+  it('correctly highlights blocks when audio is played and paused', async () => {
     render(<App />, { wrapper: AllTheProviders });
     const user = userEvent.setup();
 
@@ -148,7 +145,7 @@ describe('Home Component', () => {
     expect(playButton).toBeInTheDocument();
   });
 
-  it('Correct blocks are highlighted when scrubber input is handled', async () => {
+  it('correctly highlights blocks when scrubber input is used', async () => {
     render(<App />, { wrapper: AllTheProviders });
 
     await waitFor(async () => {
