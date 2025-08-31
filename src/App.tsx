@@ -134,7 +134,6 @@ export const App = () => {
               src={audioUrl}
               className="audio"
               aria-label="audio player"
-              data-testid="test-audio"
               hidden
             />
             {!isAudioPlaying ? (

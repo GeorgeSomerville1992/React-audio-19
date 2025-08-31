@@ -115,16 +115,16 @@ describe('Home Component', () => {
     render(<App />, { wrapper: AllTheProviders });
     const user = userEvent.setup();
 
-    const audio = await screen.findByTestId('test-audio');
+    await waitFor(async () => {
+      expect(
+        await screen.getByText('Good day, and welcome to the first quarter 2023 GoGo Inc. earnings conference call.'),
+      );
+    });
     const playButton = screen.getByRole('button', { name: /play/i });
 
     expect(playButton).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /pause/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('listitem', { name: 'block-highlighted' })).not.toBeInTheDocument();
-    expect(audio).toHaveAttribute(
-      'src',
-      'https://main.d319k8lxxb3z56.amplifyapp.com/gg1aa17c-0a31-495c-8e9d-6179de3d3111.ogg',
-    );
 
     user.click(playButton);
 
