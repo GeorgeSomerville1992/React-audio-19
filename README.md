@@ -12,16 +12,19 @@ Requirements:
 - When the audio player is scrubbed to a specific time, the correct block should be highlighted.
 
 Notes:
-
+r
 Unit tests are testing against data-testid s, so you should not remove/change any existing ones.
 
 Deployment link
 
-https://audioapp-jet.vercel.app/
+https://react-audio-19.vercel.app/
 
 Feedback =======
 
-- Basic use transcript hook, brings in data, has loading and error state. All tested.
+- Basic use transcript hook, brings in data, has loading and error state.
+
+  - Hook itself is testing All tested.
+  - Hook intergration with component is tested
 
   - We could refactor this to use react 19/suspense and a loading fallback instead of using loading. But I didn't see the value here
   - Similar thought process with a error boundary. Perhaps considered if we had more components to cover

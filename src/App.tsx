@@ -1,17 +1,21 @@
 import './App.css';
 import { useEffect, useState, useRef } from 'react';
-import { useTranscript } from './hooks/useTranscript';
 import { type AudioBlock } from './types';
 import { findAudioBlock } from './utils';
 import { FaCirclePlay, FaCircleStop } from 'react-icons/fa6';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { fetchTranscript } from './api/fetchTranscript';
+import ErrorBoundary from './Errorboundary';
+
+import { useQuery } from '@tanstack/react-query';
 
 export const App = () => {
-  const { loading, data, error } = useTranscript();
   const [audioTime, setAudioTime] = useState(0);
   const [selectedText, setSelectedText] = useState<AudioBlock>();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
+  const { isLoading, error, data } = useQuery({ queryKey: ['transcript'], queryFn: fetchTranscript });
 
   const handleBlockClick = (block: AudioBlock) => {
     const audioFile = audioRef.current;
@@ -47,9 +51,9 @@ export const App = () => {
     const audioFile = audioRef.current;
     if (!audioFile) return;
     audioFile.play.call(audioFile);
-
     setAudioTime(audioFile.currentTime);
     setIsAudioPlaying(true);
+
     // Highlight the first block if audio starts from the beginning
     if (audioFile.currentTime === 0 && data?.blocks) {
       setSelectedText(data?.blocks[0]);
@@ -68,14 +72,16 @@ export const App = () => {
   useEffect(() => {
     if (audioTime === 0 || !data?.blocks) return;
 
-    const foundAudioBlock = data.blocks.find((block) => audioTime >= block.start && audioTime <= block.end);
+    const foundAudioBlock = data.blocks.find(
+      (block: { start: number; end: number }) => audioTime >= block.start && audioTime <= block.end,
+    );
 
     setSelectedText(foundAudioBlock);
   }, [audioTime, data]);
 
   if (error) return <h2> Error </h2>;
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div data-testid="loading" className="centered">
         <AiOutlineLoading3Quarters size={32} className="loading-icon" />
@@ -101,44 +107,55 @@ export const App = () => {
         </div>
       </header>
       <main>
-        <div className="transcript">
-          <ul className="blocks overflow-scroll">
-            {blocks.length > 0 &&
-              blocks.map((block: AudioBlock, index) => {
-                const isHighlighted = selectedText?.text === block.text;
-                return (
-                  <li
-                    key={`${block.start + index}`}
-                    data-testid={isHighlighted ? 'test-block-highlighted' : 'test-block'}
-                    onClick={() => handleBlockClick(block)}
-                  >
-                    <p className={isHighlighted ? 'block-highlighted' : ''}> {block.text} </p>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div className="controls">
-          <audio ref={audioRef} controls id="audio" src={audioUrl} className="audio" data-testid="test-audio" hidden />
-          {!isAudioPlaying ? (
-            <button type="button" data-testid="test-play-button" aria-label="Play" onClick={togglePlay}>
-              <FaCirclePlay size={32} />
-            </button>
-          ) : (
-            <button type="button" data-testid="test-pause-button" aria-label="Pause" onClick={togglePause}>
-              <FaCircleStop size={32} />
-            </button>
-          )}
-          <input
-            type="range"
-            id="audio-scrubber"
-            aria-label="Audio Scrubber"
-            min="0"
-            max={audioRef.current?.duration || 0}
-            value={audioTime}
-            onChange={handleScrubberChange}
-          />
-        </div>
+        <ErrorBoundary>
+          <div className="transcript">
+            <ul className="blocks overflow-scroll">
+              {blocks.length > 0 &&
+                blocks.map((block: AudioBlock, index: number) => {
+                  const isHighlighted = selectedText?.text === block.text;
+                  return (
+                    <li
+                      key={`${block.start + index}`}
+                      data-testid={isHighlighted ? 'test-block-highlighted' : 'test-block'}
+                      onClick={() => handleBlockClick(block)}
+                    >
+                      <p className={isHighlighted ? 'block-highlighted' : ''}> {block.text} </p>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+          <div className="controls">
+            <audio
+              ref={audioRef}
+              controls
+              id="audio"
+              src={audioUrl}
+              className="audio"
+              data-testid="test-audio"
+              hidden
+            />
+            {!isAudioPlaying ? (
+              <button type="button" data-testid="test-play-button" aria-label="Play" onClick={togglePlay}>
+                <FaCirclePlay size={32} />
+              </button>
+            ) : (
+              <button type="button" data-testid="test-pause-button" aria-label="Pause" onClick={togglePause}>
+                <FaCircleStop size={32} />
+              </button>
+            )}
+            <input
+              type="range"
+              id="audio-scrubber"
+              data-testid="test-audio-scrubber"
+              aria-label="Audio Scrubber"
+              min="0"
+              max={audioRef.current?.duration}
+              value={audioTime}
+              onChange={handleScrubberChange}
+            />
+          </div>
+        </ErrorBoundary>
       </main>
     </div>
   );

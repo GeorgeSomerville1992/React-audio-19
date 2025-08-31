@@ -11,9 +11,13 @@ footer {
   padding: 32px;
 }
 
+main {
+  height: 100vh;
+}
+
 .transcript {
   padding: 32px;
-  height: 80vh;
+  height: 85vh;
   overflow: auto;
   padding-top: 0;
 }
