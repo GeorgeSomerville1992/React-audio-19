@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1756674106011" clover="3.2.0">
-  <project timestamp="1756674106011" name="All files">
-    <metrics statements="182" coveredstatements="151" conditionals="40" coveredconditionals="33" methods="14" coveredmethods="11" elements="236" coveredelements="195" complexity="0" loc="182" ncloc="182" packages="3" files="8" classes="8"/>
+<coverage generated="1758357469638" clover="3.2.0">
+  <project timestamp="1758357469638" name="All files">
+    <metrics statements="181" coveredstatements="150" conditionals="40" coveredconditionals="33" methods="14" coveredmethods="11" elements="235" coveredelements="194" complexity="0" loc="181" ncloc="181" packages="3" files="8" classes="8"/>
     <package name="src">
-      <metrics statements="164" coveredstatements="133" conditionals="35" coveredconditionals="29" methods="13" coveredmethods="10"/>
+      <metrics statements="163" coveredstatements="132" conditionals="35" coveredconditionals="29" methods="13" coveredmethods="10"/>
       <file name="App.tsx" path="/Users/georgesomerville/dev/code-tests/react-19-audio/src/App.tsx">
-        <metrics statements="112" coveredstatements="112" conditionals="27" coveredconditionals="23" methods="6" coveredmethods="6"/>
+        <metrics statements="111" coveredstatements="111" conditionals="27" coveredconditionals="23" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="12" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="13" count="22" type="stmt"/>
@@ -102,22 +102,21 @@
         <line num="135" count="22" type="stmt"/>
         <line num="136" count="22" type="stmt"/>
         <line num="137" count="22" type="stmt"/>
-        <line num="138" count="22" type="stmt"/>
-        <line num="140" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="139" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="140" count="12" type="stmt"/>
         <line num="141" count="12" type="stmt"/>
-        <line num="142" count="12" type="stmt"/>
+        <line num="144" count="22" type="stmt"/>
         <line num="145" count="22" type="stmt"/>
-        <line num="146" count="22" type="stmt"/>
+        <line num="148" count="22" type="stmt"/>
         <line num="149" count="22" type="stmt"/>
         <line num="150" count="22" type="stmt"/>
         <line num="151" count="22" type="stmt"/>
         <line num="152" count="22" type="stmt"/>
-        <line num="153" count="22" type="stmt"/>
-        <line num="154" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="153" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="154" count="22" type="stmt"/>
         <line num="155" count="22" type="stmt"/>
-        <line num="156" count="22" type="stmt"/>
-        <line num="163" count="22" type="stmt"/>
-        <line num="165" count="1" type="stmt"/>
+        <line num="162" count="22" type="stmt"/>
+        <line num="164" count="1" type="stmt"/>
       </file>
       <file name="Errorboundary.tsx" path="/Users/georgesomerville/dev/code-tests/react-19-audio/src/Errorboundary.tsx">
         <metrics statements="31" coveredstatements="19" conditionals="3" coveredconditionals="2" methods="4" coveredmethods="2"/>
