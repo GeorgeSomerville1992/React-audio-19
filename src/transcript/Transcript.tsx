@@ -43,7 +43,6 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
   const handleScrubberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const audioFile = audioRef.current;
     if (!audioFile || !data) return;
-    console.log('handleScrubberChange', event.target.value);
     // Get the current time of the audio
     const newTime = parseFloat(event.target.value);
     setAudioTime(newTime);
@@ -107,7 +106,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
       </div>
     );
   }
-  console.log('selected text', selectedText);
+
   return (
     <ErrorBoundary>
       <div className="transcript">

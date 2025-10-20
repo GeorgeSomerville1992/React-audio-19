@@ -19,7 +19,6 @@ export const postTranscript = async (audio: FormData) => {
       id: data.id,
       title: 'txt',
       blocks: data.sentences,
-      audioUrl: 'https://main.d319k8lxxb3z56.amplifyapp.com/gg1aa17c-0a31-495c-8e9d-6179de3d3111.ogg',
     };
 
     return responseFormatted;
