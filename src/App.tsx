@@ -1,11 +1,26 @@
+'use client';
 import { useState } from 'react';
 import { Transcript } from './transcript/Transcript';
 import { postTranscript } from './api/uploadTranscript';
 import { useMutation } from '@tanstack/react-query';
+import { useErrorBoundary, ErrorBoundary } from 'react-error-boundary';
 import './App.css';
+
+function Fallback({ error }: { error: Error }) {
+  const { resetBoundary } = useErrorBoundary();
+
+  return (
+    <div className="flex justify-center items-center p-32" role="alert">
+      <p>Something went wrong:</p>
+      <pre style={{ color: 'red' }}>{error.message}</pre>
+      <button onClick={resetBoundary}>Try again</button>
+    </div>
+  );
+}
 
 export const App = () => {
   const { mutate, isPending, error } = useMutation({ mutationKey: ['transcript'], mutationFn: postTranscript });
+  const { showBoundary } = useErrorBoundary();
 
   const [file, setFile] = useState<File | null>(null);
   const [audioUrl, setAudioUrl] = useState<string>();
@@ -15,15 +30,21 @@ export const App = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    if (file) {
-      formData.append('audio', file);
-      mutate(formData);
-    } else {
-      // TODO handle no file selected
-      setFileError(true);
+
+    if (!file) {
       console.error('No file selected');
+      showBoundary(new Error('No file selected'));
+      return;
     }
 
+    if (file.size > 1048576 * 4.5) {
+      console.error('File size exceeds 4.5 MB');
+      showBoundary(new Error('File size exceeds 4.5 MB'));
+      return;
+    }
+
+    formData.append('audio', file);
+    mutate(formData);
     // Simulate an upload process
   };
 
@@ -43,17 +64,28 @@ export const App = () => {
           <h1 className="text-3xl font-bold text-gray-900">Audio App</h1>
         </div>
       </header>
-      <main>
-        <form className="transcript-form" onSubmit={onUploadTranscript} encType="multipart/form-data">
-          <label htmlFor="transcript" className="transcript-upload">
-            <i className="fa fa-cloud-upload"></i> Upload file (no larger than 4.5 MB)
-          </label>
-          <input className="fileInput" id="transcript" type="file" name="transcript" onChange={handleFileChange} />
-          {fileError && <p className="error-text">Please select a valid audio file.</p>}
-          <button type="submit">Submit</button>
-        </form>
-        <Transcript isLoading={isPending} error={error} audioUrl={audioUrl} />
-      </main>
+      <ErrorBoundary FallbackComponent={Fallback}>
+        <main>
+          <form className="transcript-form" onSubmit={onUploadTranscript} encType="multipart/form-data">
+            <label htmlFor="transcript" className="transcript-upload">
+              <i className="fa fa-cloud-upload"></i> Upload file (no larger than 4.5 MB)
+            </label>
+            <input className="fileInput" id="transcript" type="file" name="transcript" onChange={handleFileChange} />
+            {file && <p className="file-name">Selected file: {file.name}</p>}
+            {fileError && <p className="error-text">Please select a valid audio file.</p>}
+            <button type="submit">Submit</button>
+          </form>
+          <Transcript isLoading={isPending} error={error} audioUrl={audioUrl} />
+        </main>
+      </ErrorBoundary>
     </div>
+  );
+};
+
+export const AppContainer = () => {
+  return (
+    <ErrorBoundary FallbackComponent={Fallback}>
+      <App />
+    </ErrorBoundary>
   );
 };

@@ -4,7 +4,6 @@ import { type AudioBlock, type Audio } from '../types';
 import { findAudioBlock } from '../utils';
 import { FaCirclePlay, FaCircleStop } from 'react-icons/fa6';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import ErrorBoundary from '../Errorboundary';
 import { useMutationState } from '@tanstack/react-query';
 
 type transcriptProps = {
@@ -108,7 +107,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
   }
 
   return (
-    <ErrorBoundary>
+    <section>
       <div className="transcript">
         <ul className="blocks overflow-scroll">
           {data.blocks.length > 0 &&
@@ -148,7 +147,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
           onChange={handleScrubberChange}
         />
       </div>
-    </ErrorBoundary>
+    </section>
   );
 };
 

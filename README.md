@@ -20,3 +20,9 @@ Notes:
 - Working tests using MSW, removing need for mocking entire hooks/network files
 - No more test ID's
 - Working audio tag connected with a range input.
+
+Todo
+
+- Pagination for large parts of text.
+- Fix all styling, either tailwind or not
+- Fix weird issue with footer not appearing..

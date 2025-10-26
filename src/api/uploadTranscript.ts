@@ -7,7 +7,7 @@ const url =
   }).toString();
 
 export const postTranscript = async (audio: FormData) => {
-  // SORT ANNOYING 4.5 LIMIT FROM VERCEL
+  // Vercel serverless function endpoint, limited to 4.5MB file size which we need to fix.
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -20,7 +20,6 @@ export const postTranscript = async (audio: FormData) => {
       title: 'txt',
       blocks: data.sentences,
     };
-
     return responseFormatted;
   } catch (err: unknown) {
     throw new Error(err instanceof Error ? err.message : 'Unknown error');
