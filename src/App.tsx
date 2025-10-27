@@ -10,8 +10,8 @@ function Fallback({ error }: { error: Error }) {
   const { resetBoundary } = useErrorBoundary();
 
   return (
-    <div className="flex justify-center items-center p-32" role="alert">
-      <p>Something went wrong:</p>
+    <div className="flex justify-center items-center p-32 items-center flex-col gap-4" role="alert">
+      <h4>Something went wrong</h4>
       <pre style={{ color: 'red' }}>{error.message}</pre>
       <button onClick={resetBoundary}>Try again</button>
     </div>
@@ -58,10 +58,10 @@ export const App = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div>
       <header className="bg-dark-grey w-screen pt-4 pb-4">
         <div className="flex justify-center items-center gap-3">
-          <h1 className="text-3xl font-bold text-gray-900">Audio App</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Transcript App</h1>
         </div>
       </header>
       <ErrorBoundary FallbackComponent={Fallback}>

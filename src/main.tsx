@@ -16,6 +16,5 @@ createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <AppContainer />
     </StrictMode>
-    ,
   </QueryClientProvider>,
 );

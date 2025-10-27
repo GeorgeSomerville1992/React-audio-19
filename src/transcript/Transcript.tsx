@@ -92,7 +92,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
 
   if (isLoading) {
     return (
-      <div data-testid="loading" className="centered">
+      <div data-testid="loading" className="centered h-70">
         <AiOutlineLoading3Quarters size={32} className="loading-icon" />
       </div>
     );
@@ -100,33 +100,15 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
 
   if (!data?.blocks?.length) {
     return (
-      <div className="centered">
+      <div className="centered h-70">
         <h2> No data </h2>
       </div>
     );
   }
 
   return (
-    <section>
-      <div className="transcript">
-        <ul className="blocks overflow-scroll">
-          {data.blocks.length > 0 &&
-            data.blocks.map((block: AudioBlock, index: number) => {
-              const isHighlighted = selectedText?.text === block.text;
-              return (
-                <li
-                  key={`${block.start + index}`}
-                  aria-label={isHighlighted ? 'block-highlighted' : undefined}
-                  onClick={() => handleBlockClick(block)}
-                  className={isHighlighted ? 'block-highlighted' : ''}
-                >
-                  <p> {block.text} </p>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-      <div className="controls">
+    <section className="flex flex-col justify-between">
+      <div className="controls h-20">
         <audio ref={audioRef} controls id="audio" src={audioUrl} className="audio" aria-label="audio player" hidden />
         {!isAudioPlaying ? (
           <button type="button" aria-label="Play" onClick={togglePlay}>
@@ -146,6 +128,24 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
           value={audioTime}
           onChange={handleScrubberChange}
         />
+      </div>
+      <div className="transcript">
+        <ul className="blocks overflow-scroll">
+          {data.blocks.length > 0 &&
+            data.blocks.map((block: AudioBlock, index: number) => {
+              const isHighlighted = selectedText?.text === block.text;
+              return (
+                <li
+                  key={`${block.start + index}`}
+                  aria-label={isHighlighted ? 'block-highlighted' : undefined}
+                  onClick={() => handleBlockClick(block)}
+                  className={isHighlighted ? 'block-highlighted' : ''}
+                >
+                  <p> {block.text} </p>
+                </li>
+              );
+            })}
+        </ul>
       </div>
     </section>
   );
