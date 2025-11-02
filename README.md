@@ -24,5 +24,3 @@ Notes:
 Todo
 
 - Pagination for large parts of text.
-- Fix all styling, either tailwind or not
-- Fix weird issue with footer not appearing..

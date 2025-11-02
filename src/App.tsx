@@ -4,7 +4,6 @@ import { Transcript } from './transcript/Transcript';
 import { postTranscript } from './api/uploadTranscript';
 import { useMutation } from '@tanstack/react-query';
 import { useErrorBoundary, ErrorBoundary } from 'react-error-boundary';
-import './App.css';
 
 function Fallback({ error }: { error: Error }) {
   const { resetBoundary } = useErrorBoundary();
@@ -61,16 +60,23 @@ export const App = () => {
     <div>
       <header className="bg-dark-grey w-screen pt-4 pb-4">
         <div className="flex justify-center items-center gap-3">
-          <h1 className="text-3xl font-bold text-gray-900">Transcript App</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Transcript</h1>
         </div>
       </header>
       <ErrorBoundary FallbackComponent={Fallback}>
         <main>
-          <form className="transcript-form" onSubmit={onUploadTranscript} encType="multipart/form-data">
-            <label htmlFor="transcript" className="transcript-upload">
-              <i className="fa fa-cloud-upload"></i> Upload file (no larger than 4.5 MB)
+          <form
+            className="flex flex-col justify-center items-center"
+            onSubmit={onUploadTranscript}
+            encType="multipart/form-data"
+          >
+            <label
+              htmlFor="transcript"
+              className="inline-block border border-color: var(--color-black) h-[calc(100px)] w-[calc(300px)] content-center mb-20 text-center"
+            >
+              Upload file (no larger than 4.5 MB)
             </label>
-            <input className="fileInput" id="transcript" type="file" name="transcript" onChange={handleFileChange} />
+            <input className="hidden" id="transcript" type="file" name="transcript" onChange={handleFileChange} />
             {file && <p className="file-name">Selected file: {file.name}</p>}
             {fileError && <p className="error-text">Please select a valid audio file.</p>}
             <button type="submit">Submit</button>

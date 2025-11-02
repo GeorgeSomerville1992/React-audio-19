@@ -92,7 +92,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
 
   if (isLoading) {
     return (
-      <div data-testid="loading" className="centered h-70">
+      <div data-testid="loading" className="flex justify-center items-center text-center h-70">
         <AiOutlineLoading3Quarters size={32} className="loading-icon" />
       </div>
     );
@@ -100,16 +100,16 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
 
   if (!data?.blocks?.length) {
     return (
-      <div className="centered h-70">
+      <div className="flex justify-center items-center text-center h-70">
         <h2> No data </h2>
       </div>
     );
   }
-
+  // p-[calc(12px)]
   return (
-    <section className="flex flex-col justify-between">
-      <div className="controls h-20">
-        <audio ref={audioRef} controls id="audio" src={audioUrl} className="audio" aria-label="audio player" hidden />
+    <section className="flex flex-col justify-between p-32">
+      <div className="flex h-20 p-[calc(12px)]">
+        <audio ref={audioRef} controls id="audio" src={audioUrl} className="w-full" aria-label="audio player" hidden />
         {!isAudioPlaying ? (
           <button type="button" aria-label="Play" onClick={togglePlay}>
             <FaCirclePlay size={32} />
@@ -122,6 +122,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
         <input
           type="range"
           id="audio-scrubber"
+          className="ml-[calc(12px)]"
           aria-label="Audio Scrubber"
           min="0"
           max={audioRef.current?.duration}
@@ -129,8 +130,9 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
           onChange={handleScrubberChange}
         />
       </div>
-      <div className="transcript">
-        <ul className="blocks overflow-scroll">
+
+      <div className="overflow-scroll h-[calc(100vh-128px)]">
+        <ul className="mt-12">
           {data.blocks.length > 0 &&
             data.blocks.map((block: AudioBlock, index: number) => {
               const isHighlighted = selectedText?.text === block.text;
@@ -139,7 +141,7 @@ export const Transcript = ({ isLoading, error, audioUrl }: transcriptProps) => {
                   key={`${block.start + index}`}
                   aria-label={isHighlighted ? 'block-highlighted' : undefined}
                   onClick={() => handleBlockClick(block)}
-                  className={isHighlighted ? 'block-highlighted' : ''}
+                  className={`p-[calc(12px)] cursor ${isHighlighted ? 'block-highlighted' : ''}`}
                 >
                   <p> {block.text} </p>
                 </li>

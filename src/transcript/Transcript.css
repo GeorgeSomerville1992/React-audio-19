@@ -1,62 +1,9 @@
 @import 'tailwindcss';
 
-header,
-footer {
-  padding: 32px;
-}
-
-.transcript {
-  padding: 32px 32px 0 32px;
-  padding-top: 0;
-  overflow: scroll;
-  height: calc(100vh - 128px);
-}
-
-.blocks {
-  margin-top: 12px;
-  gap: 12px;
-  overflow-y: scroll;
-}
-
-.blocks li {
-  padding: 12px;
-  cursor: pointer;
-}
-
-.controls {
-  padding-top: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 225px;
-  padding-left: 40px;
-}
-
-.controls button,
-input {
-  cursor: pointer;
-}
-
-.block {
-  cursor: pointer;
-  padding: 2px;
-}
-
 .block:hover {
   background-color: #e5eeff;
 }
 
 .block-highlighted {
   background-color: #fef08a;
-}
-
-.audio {
-  width: 100%;
-}
-
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
